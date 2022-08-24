@@ -1,5 +1,5 @@
-var minute=99;
-var sec=55;
+var minute=0;
+var sec=0;
 setInterval(() => {
     let time="";
     sec++; 
