@@ -4,7 +4,7 @@ var tileSelected = null;
 var gameTimer;
 var spaces=0;
 var errors = 0;
-
+var numCount=new Array(0,0,0,0,0,0,0,0,0);
 var board = [
     "--74916-5",
     "2---6-3-9",
@@ -34,6 +34,7 @@ window.onload = function() {
 }
 
 function setGame() {
+
     var minute=0;
     var sec=0;
     // Digits 1-9
@@ -53,7 +54,9 @@ function setGame() {
             let tile = document.createElement("div");
             tile.id = r.toString() + "-" + c.toString();
             if (board[r][c] != "-") {
-                tile.innerText = board[r][c];
+                let a= board[r][c];
+                tile.innerText =a;
+                numCount[parseInt(a)-1]++;
                 tile.classList.add("tile-start");
             }
             else {
@@ -70,6 +73,15 @@ function setGame() {
             document.getElementById("board").append(tile);
         }
     }
+    for(let i=0;i<9;i++)
+    {
+        if( numCount[i]==9)
+        {
+            let element= document.getElementById((i+1).toString());
+            element.remove();
+        }
+    }
+    
    gameTimer= setInterval(() => {
         let time="";
         sec++; 
@@ -113,15 +125,21 @@ function selectTile() {
         let coords = this.id.split("-"); //["0", "0"]
         let r = parseInt(coords[0]);
         let c = parseInt(coords[1]);
-
+        let i=parseInt( solution[r][c]);
         if (solution[r][c] == numSelected.id) {
             this.innerText = numSelected.id;
             spaces--;
+            numCount[i-1]++;
             if(spaces==0)
             {
                 clearInterval(gameTimer);
             }
+            if(numCount[i-1]==9)
+            {
+                numSelected.remove();
+            }
         }
+        
         else {
             errors += 1;
             document.getElementById("errors").innerText = errors;
