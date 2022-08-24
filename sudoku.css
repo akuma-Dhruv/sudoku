@@ -21,11 +21,12 @@ hr {
 }
 #error_div
 {
-    position: absolute;
-
+    /*position: absolute;*/
+    
 }
 .timer{
     
+    position: relative;
         float: right;
         margin-right: 2%;
     }

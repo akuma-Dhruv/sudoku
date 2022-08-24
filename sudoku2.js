@@ -1,7 +1,8 @@
 
 var numSelected = null;
 var tileSelected = null;
-
+var gameTimer;
+var spaces=0;
 var errors = 0;
 
 var board = [
@@ -55,6 +56,9 @@ function setGame() {
                 tile.innerText = board[r][c];
                 tile.classList.add("tile-start");
             }
+            else {
+                spaces++;
+            }
             if (r == 2 || r == 5) {
                 tile.classList.add("horizontal-line");
             }
@@ -66,7 +70,7 @@ function setGame() {
             document.getElementById("board").append(tile);
         }
     }
-    setInterval(() => {
+   gameTimer= setInterval(() => {
         let time="";
         sec++; 
         if(sec>59)
@@ -112,6 +116,11 @@ function selectTile() {
 
         if (solution[r][c] == numSelected.id) {
             this.innerText = numSelected.id;
+            spaces--;
+            if(spaces==0)
+            {
+                clearInterval(gameTimer);
+            }
         }
         else {
             errors += 1;
