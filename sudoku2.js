@@ -1,4 +1,3 @@
-
 var numSelected = null;
 var tileSelected = null;
 var gameTimer;
@@ -33,11 +32,58 @@ window.onload = function() {
     setGame();
 }
 
-function setGame() {
+async function loadArray()
+{
+    const response = await fetch('data/sudoku.json');
+    const data =await response.json();
+    return data;
+}
 
+async function generateMatrix()
+{
+    var num;
+    var matrixData={
+
+         que :"" ,
+         sol :"" 
+    }
+    
+    let data=[];
+    num=Math.floor(Math.random()*2243);
+    try{
+        data = await loadArray();
+        matrixData.que=data[num].que;
+        matrixData.sol=data[num].sol;
+    }
+    catch(err){
+        console.log("Error!");
+        console.log(err);
+    }
+    console.log(num);
+    console.log(matrixData);
+    return matrixData;
+}
+
+async function setGame() {
+    
     var minute=0;
     var sec=0;
     // Digits 1-9
+    var matrixData={
+        
+        que :"" ,
+        sol :"" 
+    }
+    //set global Variables
+    matrixData= await generateMatrix();
+    for(let i=0;i<81;i++)
+    {
+    var r=i/9;
+    var c=i%9;
+    
+     board[r][c]=matrixData.que[i];
+    solution[r][c]=matrixData.sol[i];
+    }
     for (let i = 1; i <= 9; i++) {
         //<div id="1" class="number">1</div>
         let number = document.createElement("div");
