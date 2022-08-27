@@ -21,13 +21,13 @@ var solution = [
     "675832941",
     "812945763"
 ]
-async function loadArray()
+function loadArray()
 {
-    const response = await fetch('data/sudoku.json');
-    const data =await response.json();
+    const response =  fetch('data/sudoku.json');
+    const data =response.json();
     return data;
 }
-async function generateMatrix()
+ function generateMatrix()
 {
     var num;
     var matrixData={
@@ -39,7 +39,7 @@ async function generateMatrix()
     let data=[];
     num=Math.floor(Math.random()*2243);
     try{
-        data = await loadArray();
+        data =  loadArray();
         matrixData.que=data[num].que;
         matrixData.sol=data[num].sol;
         for(let i=0;i<81;i++)
@@ -48,7 +48,7 @@ async function generateMatrix()
         var c=i%9;
 
         // board[r][c]=que[i];
-        // solution[r][c]=sol[i];
+         solution[r][c]=sol[i];
     }
 }
 catch(err){

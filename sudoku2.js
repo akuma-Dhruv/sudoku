@@ -76,30 +76,21 @@ async function setGame() {
     }
     //set global Variables
     matrixData= await generateMatrix();
-    for(let i=0;i<81;i++)
+   
+    for(let i=0;i<9;i++)
     {
-    var r=i/9;
-    var c=i%9;
-    
-     board[r][c]=matrixData.que[i];
-    solution[r][c]=matrixData.sol[i];
-    }
-    for (let i = 1; i <= 9; i++) {
-        //<div id="1" class="number">1</div>
-        let number = document.createElement("div");
-        number.id = i
-        number.innerText = i;
-        number.addEventListener("click", selectNumber);
-        number.classList.add("number");
-        document.getElementById("digits").appendChild(number);
-    }
-
-    // Board 9x9
+        let j=i*9;   
+         board[i]=matrixData.que.slice(j,j+9);
+        solution[i]=matrixData.sol.slice(j,j+9);
+        }
+        
+        
+        // Board 9x9
     for (let r = 0; r < 9; r++) {
         for (let c = 0; c < 9; c++) {
             let tile = document.createElement("div");
             tile.id = r.toString() + "-" + c.toString();
-            if (board[r][c] != "-") {
+            if (board[r][c] != "0") {
                 let a= board[r][c];
                 tile.innerText =a;
                 numCount[parseInt(a)-1]++;
@@ -118,6 +109,15 @@ async function setGame() {
             tile.classList.add("tile");
             document.getElementById("board").append(tile);
         }
+    }
+    for (let i = 1; i <= 9; i++) {
+        //<div id="1" class="number">1</div>
+        let number = document.createElement("div");
+        number.id = i
+        number.innerText = i;
+        number.addEventListener("click", selectNumber);
+        number.classList.add("number");
+        document.getElementById("digits").appendChild(number);
     }
     for(let i=0;i<9;i++)
     {
